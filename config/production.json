@@ -1,3 +1,3 @@
 {
-    "db": "mongodb://localhost/Mernstack"
+    "db": "mongodb+srv://wali:waliwali@cluster0.v8w05.mongodb.net/Mernstack?retryWrites=true&w=majority"
 }
