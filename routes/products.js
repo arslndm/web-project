@@ -24,8 +24,7 @@ router.post('/add',async function (req, res, next) {
     Name: req.body.Name,
     Price:req.body.Price,
     image: req.body.image,
-    Description: req.body.Description,
-    Status: req.body.Status
+
   });
   await product.save()
   res.redirect('/products');

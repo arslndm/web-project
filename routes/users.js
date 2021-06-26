@@ -6,14 +6,35 @@ var bcrypt = require("bcryptjs");
 
 
 /* GET users listing. */
-//  register page
-router.get('/register', function (req, res, next) {
-  res.render('user/register');
-});
+
 //  login page
 router.get('/login', function (req, res, next) {
   res.render('user/login');
 });
+
+
+// login session
+router.post('/login', async function (req, res, next) {
+  let user = await User.findOne({
+    Email: req.body.Email,
+    Password: req.body.Password
+  })
+  if (!user) return res.redirect("/login")
+  req.session.user = user
+  res.redirect("/")
+  router.get('/logout', function (req, res, next) {
+    req.session.user = null
+    res.redirect('/login');
+  });
+
+
+});
+
+//  register page
+router.get('/register', function (req, res, next) {
+  res.render('user/register');
+});
+
 // register user
 router.post('/register', async function (req, res, next) {
   let user = await User.findOne({
@@ -65,25 +86,6 @@ router.post('/checkout', async function (req, res, next) {
 
   res.redirect('/products');
 });
-
-
-// login session
-router.post('/login', async function (req, res, next) {
-  let user = await User.findOne({
-    Email: req.body.Email,
-    Password: req.body.Password
-  })
-  if (!user) return res.redirect("/login")
-  req.session.user = user
-  res.redirect("/")
-  router.get('/logout', function (req, res, next) {
-    req.session.user = null
-    res.redirect('/login');
-  });
-
-
-});
-
 
 
 
